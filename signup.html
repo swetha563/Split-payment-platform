@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - SplitPay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .signup-container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .signup-left {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .signup-right {
+            flex: 1.2;
+            padding: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .welcome-text h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .welcome-text p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .features-list i {
+            color: var(--accent);
+        }
+
+        .signup-form h2 {
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 1.8rem;
+        }
+
+        .signup-form p {
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .terms input {
+            margin-top: 3px;
+        }
+
+        .terms label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        .terms a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--gray);
+        }
+
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .divider span {
+            padding: 0 15px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .social-btn:hover {
+            background: #f8fafc;
+            border-color: var(--primary);
+        }
+
+        .google-btn {
+            color: #db4437;
+        }
+
+        .facebook-btn {
+            color: #4267B2;
+        }
+
+        /* Validation styles */
+        .form-group.error input {
+            border-color: var(--danger);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .form-group.success input {
+            border-color: var(--success);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .signup-container {
+                flex-direction: column;
+                max-width: 500px;
+            }
+            
+            .signup-left {
+                padding: 30px;
+            }
+            
+            .social-login {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .signup-left, .signup-right {
+                padding: 25px;
+            }
+            
+            .welcome-text h1 {
+                font-size: 1.8rem;
+            }
+            
+            .signup-form h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animation for form */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .signup-right {
+            animation: fadeIn 0.8s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-left">
+            <div class="logo">
+                <i class="fas fa-share-alt"></i>
+                <span class="logo-text">paypie</span>
+            </div>
+            <div class="welcome-text">
+                <h1>Join paypie Today</h1>
+                <p>Automate your revenue sharing process and save hours of manual work.</p>
+            </div>
+            <ul class="features-list">
+                <li><i class="fas fa-check-circle"></i> Automate revenue distribution</li>
+                <li><i class="fas fa-check-circle"></i> Real-time transaction tracking</li>
+                <li><i class="fas fa-check-circle"></i> Secure payment processing</li>
+                <li><i class="fas fa-check-circle"></i> Handy, easy and accessible</li>
+            </ul>
+        </div>
+        
+        <div class="signup-right">
+            <div class="signup-form">
+                <h2>Create Your Account</h2>
+                <p>Sign up to start automating your revenue sharing</p>
+                
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="fullName" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="error-message">Please enter your full name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="error-message">Please enter a valid email address</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" placeholder="Create a password" required>
+                            <button type="button" class="password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="error-message">Password must be at least 8 characters</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                            <button type="button" class="password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="error-message">Passwords do not match</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="businessType">Business Type</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-building"></i>
+                            <select id="businessType" required>
+                                <option value="" disabled selected>Select your business type</option>
+                                <option value="individual">Individual/Freelancer</option>
+                                <option value="small">Small Business</option>
+                                <option value="medium">Medium Business</option>
+                                <option value="enterprise">Enterprise</option>
+                                <option value="nonprofit">Non-Profit</option>
+                            </select>
+                        </div>
+                        <div class="error-message">Please select your business type</div>
+                    </div>
+                    
+                    <div class="terms">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <label for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                    </div>
+                    
+                    <button type="submit" class="btn">
+                        <i class="fas fa-user-plus"></i><a href="bankdetails.html">Create Account</a> 
+                    </button>
+                </form>
+                
+                <div class="divider">
+                    <span>Or sign up with</span>
+                </div>
+                
+                <div class="social-login">
+                    <button class="social-btn google-btn">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    <button class="social-btn facebook-btn">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </button>
+                </div>
+                
+                <div class="login-link">
+                    Already have an account? <a href="login.html">Log in here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('signupForm');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const passwordToggleButtons = document.querySelectorAll('.password-toggle');
+            
+            // Toggle password visibility
+            passwordToggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const input = this.parentElement.querySelector('input');
+                    const icon = this.querySelector('i');
+                    
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                });
+            });
+            
+            // Real-time validation
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    validateField(this);
+                });
+                
+                input.addEventListener('input', function() {
+                    // Remove error state when user starts typing
+                    const formGroup = this.closest('.form-group');
+                    if (formGroup.classList.contains('error')) {
+                        formGroup.classList.remove('error');
+                    }
+                });
+            });
+            
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                
+                // Validate all fields
+                inputs.forEach(input => {
+                    if (!validateField(input)) {
+                        isValid = false;
+                    }
+                });
+                
+                // Validate business type
+                const businessType = document.getElementById('businessType');
+                if (!businessType.value) {
+                    businessType.closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                
+                // Validate terms agreement
+                const agreeTerms = document.getElementById('agreeTerms');
+                if (!agreeTerms.checked) {
+                    alert('Please agree to the Terms of Service and Privacy Policy');
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Simulate form submission
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+                    submitBtn.disabled = true;
+                    
+                    // Simulate API call
+                    setTimeout(() => {
+                        alert('Account created successfully! Redirecting to dashboard...');
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        
+                        // In a real app, you would redirect to the dashboard
+                        // window.location.href = 'dashboard.html';
+                    }, 2000);
+                }
+            });
+            
+            // Field validation function
+            function validateField(field) {
+                const formGroup = field.closest('.form-group');
+                let isValid = true;
+                
+                // Remove any existing error/success classes
+                formGroup.classList.remove('error', 'success');
+                
+                // Check if field is empty
+                if (!field.value.trim()) {
+                    formGroup.classList.add('error');
+                    isValid = false;
+                } else {
+                    // Field-specific validation
+                    if (field.type === 'email') {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(field.value)) {
+                            formGroup.classList.add('error');
+                            isValid = false;
+                        }
+                    }
+                    
+                    if (field.id === 'password') {
+                        if (field.value.length < 8) {
+                            formGroup.classList.add('error');
+                            isValid = false;
+                        }
+                    }
+                    
+                    if (field.id === 'confirmPassword') {
+                        if (field.value !== passwordInput.value) {
+                            formGroup.classList.add('error');
+                            isValid = false;
+                        }
+                    }
+                    
+                    // If valid, add success class
+                    if (isValid) {
+                        formGroup.classList.add('success');
+                    }
+                }
+                
+                return isValid;
+            }
+            
+            // Social login buttons
+            document.querySelector('.google-btn').addEventListener('click', function() {
+                alert('Google sign-up would be implemented here');
+            });
+            
+            document.querySelector('.facebook-btn').addEventListener('click', function() {
+                alert('Facebook sign-up would be implemented here');
+            });
+        });
+    </script>
+</body>
+</html>
